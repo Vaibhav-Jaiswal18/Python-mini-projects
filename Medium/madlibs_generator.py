@@ -1,0 +1,28 @@
+with open("story.txt", "r") as f:
+    story = f.read()
+
+words = set()
+start_of_word = -1
+
+target_start = "<"
+target_end = ">"
+
+for i, char in enumerate(story):
+    if char == target_start:
+        start_of_word = i
+
+    if char == target_end and start_of_word != -1:
+        word = story[start_of_word: i+1]
+        words.add(word)
+        start_of_word = -1
+
+answers = {}
+
+for i in words:
+    answer = input("Enter a word for "+i+": ")
+    answers[i] = answer
+
+for i in words:
+    story = story.replace(i, answers[i])
+
+print(story)
